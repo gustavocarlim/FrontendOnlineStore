@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 
 type HeaderProp = {
   onSubmit: (e:React.FormEvent<HTMLFormElement>) => void;
@@ -23,6 +24,9 @@ export default function Header({ onSubmit }: HeaderProp) {
 
         <button>Pesquisar</button>
       </form>
+      <nav>
+        <NavLink data-testid="shopping-cart-button" to="shoppingcart">Carrinho</NavLink>
+      </nav>
     </header>
   );
 }
