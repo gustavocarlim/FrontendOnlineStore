@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { getCategories } from './services/api';
 
 function App() {
+  useEffect(() => {
+    const test = async () => {
+      const aaa = await getCategories();
+      console.log(aaa);
+    };
+    test();
+  });
   return (
     <div className="App">
       <header className="App-header">
