@@ -1,22 +1,22 @@
 import { Outlet } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Header from '../../components/Header';
-import { getCategories } from '../../services/api';
+import Categories from '../../components/Categories';
+import { getProductsFromCategoryAndQuery } from '../../services/api';
+import CardsProduct, { CardsProps } from '../../components/CardsProduct';
 
 export default function Layout() {
-  const [categories, setCategories] = useState<{ id: string; name: string }[]>([]);
+  const [inputSearch, setInputSearch] = useState<string>('');
+  const [cardProduct, setCardProduct] = useState<CardsProps[]>();
+  const queryFetch = async () => {
+    const queryData = await getProductsFromCategoryAndQuery(inputSearch);
+    setCardProduct(queryData.results);
+  };
 
-  useEffect(() => {
-    async function fetchCategories() {
-      const categoriesData = await getCategories();
-      setCategories(categoriesData);
-    }
-
-    fetchCategories();
-  }, []);
-
-  const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSearch = (e: React.FormEvent<HTMLFormElement>, inputValue:string) => {
     e.preventDefault();
+    setInputSearch(inputValue);
+    queryFetch();
   };
 
   return (
@@ -29,23 +29,8 @@ export default function Layout() {
         <Outlet />
       </div>
       <div>
-        <nav>
-          <ul>
-            {categories.map((category) => (
-              <li key={ category.id }>
-                <label htmlFor={ `category-${category.id}` } data-testid="category">
-                  <input
-                    type="radio"
-                    id={ `category-${category.id}` }
-                    name="category"
-                    value={ category.id }
-                  />
-                  {category.name}
-                </label>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <Categories />
+        {cardProduct && <CardsProduct cards={ cardProduct } />}
       </div>
     </>
   );

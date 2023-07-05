@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 type HeaderProp = {
-  onSubmit: (e:React.FormEvent<HTMLFormElement>) => void;
+  onSearch: (e:React.FormEvent<HTMLFormElement>, inputValue:string) => void;
 };
 
-export default function Header({ onSubmit }: HeaderProp) {
+export default function Header({ onSearch }: HeaderProp) {
   const [inputValue, setInputValue] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,15 +14,16 @@ export default function Header({ onSubmit }: HeaderProp) {
 
   return (
     <header>
-      <form onSubmit={ onSubmit }>
+      <form onSubmit={ (e) => onSearch(e, inputValue) }>
         <input
+          data-testid="query-input"
           type="text"
           id="search"
           value={ inputValue }
           onChange={ handleChange }
         />
 
-        <button>Pesquisar</button>
+        <button data-testid="query-button">Pesquisar</button>
       </form>
       <nav>
         <NavLink data-testid="shopping-cart-button" to="shoppingcart">Carrinho</NavLink>
