@@ -6,7 +6,7 @@ export default function Categories() {
   const [categories, setCategories] = useState<{ id: string; name: string }[]>(
     [],
   );
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<any>([]);
 
   const handleClick = async (Id: string) => {
     if (Id) {
@@ -42,7 +42,14 @@ export default function Categories() {
           ))}
         </ul>
       </nav>
-      <CardsProduct cards={ products } />
+      {products.map((card:any) => (<CardsProduct
+        title={ card.title }
+        price={ card.price }
+        id={ card.id }
+        currency_id={ card.currency_id }
+        thumbnail={ card.thumbnail }
+        key={ card.id }
+      />))}
     </div>
   );
 }
