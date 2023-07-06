@@ -30,7 +30,14 @@ export default function Layout() {
       </div>
       <div>
         <Categories />
-        {cardProduct && <CardsProduct cards={ cardProduct } />}
+        {cardProduct && cardProduct.map((card) => (<CardsProduct
+          title={ card.title }
+          price={ card.price }
+          id={ card.id }
+          currency_id={ card.currency_id }
+          thumbnail={ card.thumbnail }
+          key={ card.id }
+        />))}
       </div>
     </>
   );

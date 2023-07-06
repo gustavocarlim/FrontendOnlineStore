@@ -1,28 +1,27 @@
+import { Link } from 'react-router-dom';
+
 export type CardsProps = {
-  cards: [
-    {
-      title?: string;
-      price?: number;
-      currency_id?: string;
-      thumbnail?: string;
-      id?: string;
-    },
-  ];
+  title: string;
+  price: number;
+  currency_id: string;
+  thumbnail: string;
+  id: string;
 };
 
-export default function CardsProduct({ cards }: CardsProps) {
-  if (!cards) {
+export default function CardsProduct({ title,
+  price, currency_id, thumbnail, id }: CardsProps) {
+  /* if (!id) {
     return <p>Nenhum produto foi encontrado</p>;
-  }
+  } */
   return (
     <div>
-      {cards.map((card) => (
-        <div key={ card.id } data-testid="product">
-          <h3>{card.title}</h3>
-          <img src={ card.thumbnail } alt={ card.title } />
-          <p>{`${card.currency_id}: R$ ${card.price}`}</p>
+      <Link data-testid="product-detail-link" to={ `/detailsproduct/${id}` } key={ id }>
+        <div data-testid="product">
+          <h3>{title}</h3>
+          <img src={ thumbnail } alt={ title } />
+          <p>{`${currency_id}: R$ ${price}`}</p>
         </div>
-      ))}
+      </Link>
     </div>
   );
 }
