@@ -15,7 +15,7 @@ export default function CardsProduct({ title,
   } */
   return (
     <div>
-      <Link to={ `/detailsproduct/${id}` } key={ id }>
+      <Link data-testid="product-detail-link" to={ `/detailsproduct/${id}` } key={ id }>
         <div data-testid="product">
           <h3>{title}</h3>
           <img src={ thumbnail } alt={ title } />

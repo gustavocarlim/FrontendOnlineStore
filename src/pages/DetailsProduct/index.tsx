@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProductById } from '../../services/api';
 
@@ -17,19 +17,34 @@ export default function DetailsProduct() {
   }, [id]);
 
   console.log(product);
+  if (!product) {
+    return <p>Carregando...</p>;
+  }
+
   return (
     <div>
-      <h1>{product?.title}</h1>
-      <img src={ product?.thumbnail } alt={ product?.title } />
-      <h2>{product?.price}</h2>
+      <h1 data-testid="product-detail-name">{product.title}</h1>
+      <img
+        data-testid="product-detail-image"
+        src={ product.thumbnail }
+        alt={ product.title }
+      />
+      <h2 data-testid="product-detail-price">{product.price}</h2>
       <ul>
-        {
-          product.attributes.map((el) => (
-            <li>{el.name}</li>
-            <li>{el.}</li>
-          ))
-          }
+        {product.attributes.map((attribute: any, index: number) => (
+          <li key={ index }>
+            <p>
+              {attribute.name}
+              :
+              {' '}
+            </p>
+            {attribute.value_name}
+          </li>
+        ))}
       </ul>
-      </div>
+      <Link to="/shoppingcart" data-testid="shopping-cart-button">
+        Adicionar ao Carrinho
+      </Link>
+    </div>
   );
 }
