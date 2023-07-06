@@ -16,22 +16,26 @@ export function ShoppingCart() {
       }
     };
     compras();
-  }, []);
+  }, [items]);
 
   return (
     <div>
       {items ? (
-        carr.map((el, index) => (
-          <div key={ index }>
-            <p data-testid="shopping-cart-product-name">{el.title}</p>
-            <p>{el.price}</p>
-            <p data-testid="shopping-cart-product-quantity">{carr.length}</p>
-          </div>
-        ))
+        <div>
+          {carr.map((el, index) => (
+            <div key={ index }>
+              <p data-testid="shopping-cart-product-name">{el.title}</p>
+              <p>{el.price}</p>
+            </div>
+          ))}
+          <p data-testid="shopping-cart-product-quantity">
+            Quantidade:
+            {' '}
+            {carr.length}
+          </p>
+        </div>
       ) : (
-        <h1 data-testid="shopping-cart-empty-message">
-          Seu carrinho está vazio
-        </h1>
+        <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>
       )}
     </div>
   );
