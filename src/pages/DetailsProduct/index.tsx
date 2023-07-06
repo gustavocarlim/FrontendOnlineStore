@@ -2,9 +2,16 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProductById } from '../../services/api';
 
+type ProductProps = {
+  title: string;
+  thumbnail: string;
+  price: number;
+  attributes: []
+};
+
 export default function DetailsProduct() {
   const { id } = useParams();
-  const [product, setProduct] = useState();
+  const [product, setProduct] = useState<ProductProps>();
 
   useEffect(() => {
     const getProduct = async () => {
