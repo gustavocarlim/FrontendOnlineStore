@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, json, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProductById } from '../../services/api';
 
@@ -6,12 +6,20 @@ type ProductProps = {
   title: string;
   thumbnail: string;
   price: number;
-  attributes: []
+  attributes: [];
 };
 
 export default function DetailsProduct() {
   const { id } = useParams();
-  const [product, setProduct] = useState<ProductProps>();
+  const [product, setProduct] = useState<ProductProps | undefined>();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    const arr = [];
+    arr.push(product);
+    localStorage.setItem('carrinho', JSON.stringify(arr));
+    navigate('/shoppingcart');
+  };
 
   useEffect(() => {
     const getProduct = async () => {
@@ -49,9 +57,9 @@ export default function DetailsProduct() {
           </li>
         ))}
       </ul>
-      <Link to="/shoppingcart" data-testid="shopping-cart-button">
+      <button data-testid="shopping-cart-button" onClick={ handleClick }>
         Adicionar ao Carrinho
-      </Link>
+      </button>
     </div>
   );
 }

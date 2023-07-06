@@ -21,6 +21,7 @@ export default function CardsProduct({ title,
           <img src={ thumbnail } alt={ title } />
           <p>{`${currency_id}: R$ ${price}`}</p>
         </div>
+        <button>Adicionar ao carrinho.</button>
       </Link>
     </div>
   );

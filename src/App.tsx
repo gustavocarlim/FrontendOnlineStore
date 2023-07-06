@@ -8,8 +8,8 @@ function App() {
     <Routes>
       <Route path="/" element={ <Layout /> }>
         <Route path="/shoppingcart" element={ <ShoppingCart /> } />
+        <Route path="/detailsproduct/:id" element={ <DetailsProduct /> } />
       </Route>
-      <Route path="/detailsproduct/:id" element={ <DetailsProduct /> } />
     </Routes>
   );
 }
