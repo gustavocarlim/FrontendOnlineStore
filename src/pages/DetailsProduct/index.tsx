@@ -1,4 +1,4 @@
-import { Link, json, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getProductById } from '../../services/api';
 
@@ -15,9 +15,13 @@ export default function DetailsProduct() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    const arr = [];
-    arr.push(product);
-    localStorage.setItem('carrinho', JSON.stringify(arr));
+    let cart = [];
+    if (product) {
+      const cartItems = localStorage.getItem('carrinho');
+      cart = cartItems ? JSON.parse(cartItems) : [];
+      cart.push(product);
+      localStorage.setItem('carrinho', JSON.stringify(cart));
+    }
     navigate('/shoppingcart');
   };
 
